@@ -32,6 +32,15 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function isLecturer(): bool
+    {
+        return $this->role === 'lecturer';
+    }
+    public function isStudent(): bool
+    {
+        return $this->role === 'student';
+    }
+
     /**
      * Get the attributes that should be cast.
      *
