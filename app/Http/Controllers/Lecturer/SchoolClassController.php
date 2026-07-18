@@ -19,7 +19,6 @@ class SchoolClassController extends Controller
                 ->paginate(10),
         ]);
     }
-
     public function create()
     {
         return view('lecturer.classes.form', [
