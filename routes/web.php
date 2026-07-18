@@ -7,6 +7,7 @@ use App\Http\Controllers\Lecturer\SubjectController;
 use App\Http\Controllers\Lecturer\QuestionController;
 use App\Http\Controllers\Lecturer\ResultController;
 use App\Http\Controllers\Lecturer\ExamController as LecturerExamController;
+use App\Http\Controllers\Student\ExamController  as StudentExamController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +34,12 @@ Route::middleware('auth')->group(function () {
         Route::get('attempts/{attempt}', [ResultController::class, 'show'])->name('attempts.show');
         Route::put('attempts/{attempt}/mark', [ResultController::class, 'update'])->name('attempts.mark');
 
+    });
+
+        Route::prefix('student')->name('student.')->middleware(['role:student', 'verified'])->group(function () {
+
+        Route::get('/exams', [StudentExamController::class, 'index'])->name('exams.index');
+        Route::get('/exams/{exam}', [StudentExamController::class, 'show'])->name('exams.show');
     });
 });
 
