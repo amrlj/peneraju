@@ -1,5 +1,6 @@
-@extends('layouts.app') @section('title', $subject->exists ? 'Edit Subject' : 'Create Subject') @section('heading',
-$subject->exists ? 'Edit Subject' : 'Create Subject')
+@extends('layouts.app')
+@section('title', $subject->exists ? 'Edit Subject' : 'Create Subject')
+@section('heading', $subject->exists ? 'Edit Subject' : 'Create Subject')
 @section('content')<form method="POST"
         action="{{ $subject->exists ? route('lecturer.subjects.update', $subject) : route('lecturer.subjects.store') }}"
         class="space-y-6">
@@ -31,4 +32,5 @@ $subject->exists ? 'Edit Subject' : 'Create Subject')
             </div>
             <div class="flex gap-3"><button class="btn-primary">Save Subject</button><a class="btn-secondary"
                     href="{{ route('lecturer.subjects.index') }}">Cancel</a></div>
-    </form>@endsection
+        </form>
+    @endsection
