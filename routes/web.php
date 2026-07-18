@@ -40,6 +40,11 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/exams', [StudentExamController::class, 'index'])->name('exams.index');
         Route::get('/exams/{exam}', [StudentExamController::class, 'show'])->name('exams.show');
+        Route::post('/exams/{exam}/start', [AttemptController::class, 'start'])->name('exams.start');
+        Route::get('/attempts/{attempt}', [AttemptController::class, 'show'])->name('attempts.show');
+        Route::post('/attempts/{attempt}/answers', [AttemptController::class, 'saveAnswer'])->name('attempts.answers.save');
+        Route::post('/attempts/{attempt}/submit', [AttemptController::class, 'submit'])->name('attempts.submit');
+        Route::get('/attempts/{attempt}/result', [AttemptController::class, 'result'])->name('attempts.result');
     });
 });
 
