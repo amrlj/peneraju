@@ -1,4 +1,6 @@
-@extends('layouts.app') @section('title', 'Question Bank') @section('heading', 'Question Bank')
+@extends('layouts.app')
+@section('title', 'Question Bank')
+@section('heading', 'Question Bank')
 @section('content')<div class="mb-5 flex flex-wrap items-center justify-between gap-3">
         <form method="GET" class="flex gap-2"><select class="rounded-lg border-slate-300" name="subject_id">
                 <option value="">All subjects</option>
@@ -32,4 +34,5 @@
         </div>@empty<div class="card text-center text-slate-500">No questions found.</div>
         @endforelse
     </div>
-<div class="mt-5">{{ $questions->links() }}</div>@endsection
+    <div class="mt-5">{{ $questions->links() }}</div>
+@endsection

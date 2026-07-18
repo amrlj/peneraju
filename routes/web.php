@@ -24,6 +24,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('classes', SchoolClassController::class)->except('show');
         Route::resource('subjects', SubjectController::class)->except('show');
         Route::resource('questions', QuestionController::class)->except('show');
+        Route::resource('exams', LecturerExamController::class);
+        Route::post('exams/{exam}/publish', [LecturerExamController::class, 'publish'])->name('exams.publish');
+        Route::get('exams/{exam}/results', [ResultController::class, 'index'])->name('exams.results');
+        Route::get('exams/{exam}/results/export', [ResultController::class, 'export'])->name('exams.results.export');
+        Route::get('attempts/{attempt}', [ResultController::class, 'show'])->name('attempts.show');
+        Route::put('attempts/{attempt}/mark', [ResultController::class, 'update'])->name('attempts.mark');
 
     });
 });
