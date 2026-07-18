@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Lecturer\SchoolClassController;
 use App\Http\Controllers\Lecturer\SubjectController;
 use App\Http\Controllers\Lecturer\QuestionController;
+use App\Http\Controllers\Lecturer\ResultController;
+use App\Http\Controllers\Lecturer\ExamController as LecturerExamController;
 
 Route::get('/', function () {
     return view('welcome');
