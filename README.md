@@ -1,66 +1,132 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Online Examination and Student Management Portal
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A complete Laravel 11 portal for lecturers and students, built with Laravel Breeze Blade authentication, Tailwind CSS, Eloquent ORM, server-side exam timing, automatic MCQ marking and manual open-text marking.
 
-## About Laravel
+## Requirements Covered
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Two roles: **Lecturer** and **Student**.
+- Secure credential-based authentication using Laravel Breeze scaffolding.
+- Lecturer question bank with **multiple-choice** and **open-text** questions.
+- Class and subject management.
+- Many-to-many assignment of students to classes and subjects to classes.
+- Exams assigned to one or more classes.
+- Students can only access exams assigned to their classes.
+- Server-authoritative exam time limits and automatic submission.
+- Automatic MCQ marking and lecturer marking/feedback for open-text answers.
+- Result display, attempt tracking, audit logs and CSV export.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technology
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.2+
+- Laravel 11
+- Laravel Breeze (Blade)
+- Tailwind CSS and Alpine.js
+- MySAQL
+- PHPUnit 11
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+git clone https://github.com/amrlj/peneraju.git
+cd peneraju
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Create the SQLite database
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Run the migrations and demo seeder:
 
-## Laravel Sponsors
+```bash
+php artisan migrate --seed
+npm run build
+php artisan serve
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Open `http://127.0.0.1:8000`.
 
-### Premium Partners
+### MySQL option
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Replace the SQLite configuration in `.env`:
 
-## Contributing
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=peneraju
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Then run `php artisan migrate --seed`.
 
-## Code of Conduct
+## Demo Accounts
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Role | Email | Password |
+|---|---|---|
+| Lecturer | `lecturer@gmail.com` | `password` |
+| Student | `student1@gmail.com` | `password` |
+| Student | `student2@gmail.com` | `password` |
+| Student | `student3@gmail.com` | `password` |
 
-## Security Vulnerabilities
+Change these passwords before any real deployment.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Main Workflows
 
-## License
+### Lecturer
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Log in and create classes.
+2. Assign student accounts to classes.
+3. Create subjects and associate them with classes.
+4. Add MCQ or open-text questions to the question bank.
+5. Create an exam, choose a subject, assigned classes and questions.
+6. Configure start/end date, duration, passing mark and attempts.
+7. Publish the exam.
+8. Review attempts, mark open-text answers, give feedback and export results.
+
+### Student
+
+1. Log in and view exams assigned to the student's class.
+2. Open an available exam and start an attempt.
+3. Answer questions; answers autosave to the server.
+4. Submit manually or allow automatic submission when time expires.
+5. View released results and lecturer feedback.
+
+## Security and Access Control
+
+- `role` and `active` middleware protect portal sections.
+- Lecturer controllers scope records to the authenticated lecturer.
+- Student exam access is checked against class membership on the server.
+- Exam availability, maximum attempts and expiry are validated server-side.
+- Correct MCQ flags are never rendered on the examination page.
+- Submitted attempts are locked against further answer changes.
+- CSRF protection is applied to all forms and autosave requests.
+- Login attempts are rate-limited by Breeze's login request.
+
+## Database Structure
+
+Core tables:
+
+- `users`
+- `classes`, `class_student`
+- `subjects`, `class_subject`
+- `questions`, `question_options`
+- `exams`, `exam_class`, `exam_questions`
+- `exam_attempts`, `student_answers`
+
+## Testing
+
+```bash
+php artisan test
+```
+## Useful Commands
+
+```bash
+php artisan migrate:fresh --seed
+php artisan route:list
+npm run dev
+php artisan test
+```
