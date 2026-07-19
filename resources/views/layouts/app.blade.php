@@ -57,9 +57,6 @@
                         </a>
                     @endif
 
-                    <a href="{{ route('profile.edit') }}" class="text-sm hover:text-indigo-700">
-                        Profile
-                    </a>
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
