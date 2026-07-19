@@ -8,6 +8,8 @@ use App\Http\Controllers\Lecturer\QuestionController;
 use App\Http\Controllers\Lecturer\ResultController;
 use App\Http\Controllers\Lecturer\ExamController as LecturerExamController;
 use App\Http\Controllers\Student\ExamController  as StudentExamController;
+use App\Http\Controllers\Student\AttemptController;
+
 
 Route::get('/', function () {
     return view('welcome');
