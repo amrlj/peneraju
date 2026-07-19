@@ -7,7 +7,6 @@ use App\Models\Exam;
 use App\Models\Question;
 use App\Models\SchoolClass;
 use App\Models\Subject;
-use App\Services\ActivityLogger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -48,7 +47,6 @@ class ExamController extends Controller
             return $exam;
         });
 
-        ActivityLogger::record('exam.created', $exam);
         return redirect()->route('lecturer.exams.index')->with('success', 'Exam created successfully.');
     }
 
@@ -98,7 +96,6 @@ class ExamController extends Controller
         $this->own($exam);
         abort_if($exam->questions()->count() === 0 || $exam->classes()->count() === 0, 422, 'Add at least one class and question before publishing.');
         $exam->update(['status' => 'published']);
-        ActivityLogger::record('exam.published', $exam);
         return back()->with('success', 'Exam published successfully.');
     }
 

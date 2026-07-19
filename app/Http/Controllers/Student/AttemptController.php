@@ -7,7 +7,6 @@ use App\Models\Exam;
 use App\Models\ExamAttempt;
 use App\Models\QuestionOption;
 use App\Models\StudentAnswer;
-use App\Services\ActivityLogger;
 use App\Services\ExamAccessService;
 use App\Services\ExamScoringService;
 use Illuminate\Http\Request;
@@ -19,7 +18,6 @@ class AttemptController extends Controller
     public function start(Request $r, Exam $exam, ExamAccessService $access)
     {
         $attempt = $access->start($r->user(), $exam);
-        ActivityLogger::record('exam.started', $attempt);
         return redirect()->route('student.attempts.show', $attempt);
     }
     public function show(Request $r, ExamAttempt $attempt, ExamScoringService $scorer)
@@ -56,7 +54,6 @@ class AttemptController extends Controller
         $this->own($r, $attempt);
         $automatic = now()->gt($attempt->expires_at);
         $attempt = $scorer->submit($attempt, $automatic);
-        ActivityLogger::record($automatic ? 'exam.auto_submitted' : 'exam.submitted', $attempt);
         return redirect()->route('student.attempts.result', $attempt)->with('success', 'Your exam has been submitted.');
     }
     public function result(Request $r, ExamAttempt $attempt)
